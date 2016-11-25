@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css" media="screen">
+		#box{
+			width: 200px;
+			height: 200px;
+			border: 1px solid red;
+		}	
+		#con{
+			width: 200px
+			height:200pxl
+			border:1px solid blue;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		li{
+			width: 150px;
+			height: 30px;
+			margin: 5px 0;
+			background: #ccc;
+			line-height: 30px;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function () {
+			var box=document.getElementById("box");
+			var con=document.getElementById("con");
+			var lis=document.getElementsByTagName("li");
+			for (var i = 0; i < lis.length; i++) {
+				lis[i].draggable=true;
+				lis[i].flag=false;
+				lis[i].ondragstart=function () {
+					this.flag=true;
+				}
+				lis[i].ondragend=function () {
+					this.flag=false;
+				}
+			}
+			//拖过去
+			box.ondragenter=function (e) {	
+				e.preventDefault();
+			}
+			box.ondragover=function (e) {	
+				e.preventDefault();
+			}
+			box.ondragleave=function (e) {	
+				e.preventDefault();
+			}
+			box.ondrop=function (e) {	
+				for (var i = lis.length - 1; i >= 0; i--) {
+					if (lis[i].flag) {
+						box.appendChild(lis[i]);
+					}
+				}
+				e.preventDefault();
+			}
+			//拖回来
+			con.ondragenter=function (e) {	
+				e.preventDefault();
+			}
+			con.ondragover=function (e) {	
+				e.preventDefault();
+			}
+			con.ondragleave=function (e) {	
+				e.preventDefault();
+			}
+			con.ondrop=function (e) {	
+				for (var i = lis.length - 1; i >= 0; i--) {
+					if (lis[i].flag) {
+						con.appendChild(lis[i]);
+					}
+				}
+				e.preventDefault();
+			}
+
+		}
+	</script>
+	<title></title>
+</head>
+<body>
+<div id="box">
+</div>
+<ul id="con">
+	<li>first</li>
+	<li>second</li>
+	<li>third</li>
+	<li>forth</li>
+</ul>
+</body>
+</html>
